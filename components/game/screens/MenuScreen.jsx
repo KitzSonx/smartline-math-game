@@ -12,7 +12,7 @@ export default function MenuScreen({ bestScores, bestTimes, onStart, onHowTo }) 
           <h2 className="logo-sub">Multiplication Game</h2>
           <p className="logo-thai">เกมพหุนามประยุกต์เส้นญี่ปุ่น</p>
           <p className="logo-desc">
-            ฝึกคูณพหุนามด้วยวิธีตาราง (Grid Method)<br />
+            ฝึกคูณพหุนามด้วยเทคนิคเส้นญี่ปุ่น<br />
             ใส่สัมประสิทธิ์ → คูณในตาราง → รวมแนวทแยง → คำตอบ!
           </p>
         </div>
