@@ -17,7 +17,7 @@ export default function NumPad({ onInput, onDelete, onNext, onSubmit, showSubmit
         <button className="np-btn" onClick={() => { SFX.tap(); onInput("5"); }}>5</button>
         <button className="np-btn" onClick={() => { SFX.tap(); onInput("6"); }}>6</button>
         <button className="np-btn np-minus" onClick={() => { SFX.tap(); onInput("-"); }}>
-          <span className="np-minus-label">±</span>
+          <span className="np-minus-label">-</span>
         </button>
 
         {/* Row 3 */}
