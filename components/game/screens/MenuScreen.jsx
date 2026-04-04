@@ -6,6 +6,7 @@ export default function MenuScreen({ bestScores, bestTimes, onStart, onHowTo }) 
   return (
     <div className="app-container menu-bg">
       <div className="menu-wrap">
+        {/* 1. ส่วน Logo และชื่อเกม */}
         <div className="logo-area">
           <div className="logo-x">✕</div>
           <h1 className="logo-title">Smart Line</h1>
@@ -17,11 +18,23 @@ export default function MenuScreen({ bestScores, bestTimes, onStart, onHowTo }) 
           </p>
         </div>
 
+        {/* 2. ย้ายปุ่มวิธีเล่นมาไว้ตรงนี้ (ก่อนเลือกด่าน) */}
+        <div style={{ marginBottom: '24px' }}>
+          <button 
+            className="howto-btn" 
+            onClick={() => { SFX.menuClick(); onHowTo(); }}
+            style={{ width: '100%', maxWidth: '200px' }} // ปรับให้ดูเด่นและพอดี
+          >
+            📖 วิธีเล่น
+          </button>
+        </div>
+
+        {/* 3. ส่วนเลือกด่าน */}
         <div className="level-grid">
           {LEVELS.map((lv, i) => (
             <button
               key={i}
-              className="level-card"
+              className={`level-card`}
               onClick={() => { SFX.menuClick(); onStart(i); }}
             >
               <span className="lv-emoji">{lv.emoji}</span>
@@ -32,8 +45,6 @@ export default function MenuScreen({ bestScores, bestTimes, onStart, onHowTo }) 
             </button>
           ))}
         </div>
-
-        <button className="howto-btn" onClick={onHowTo}>📖 วิธีเล่น</button>
       </div>
     </div>
   );

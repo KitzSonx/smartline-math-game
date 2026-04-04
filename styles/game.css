@@ -123,7 +123,7 @@ body { background: var(--bg); }
 /* ── Table ── */
 .grid-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 8px; display: flex; justify-content: center; }
 .game-table { border-collapse: separate; border-spacing: 4px; }
-.th-corner { padding: 12px 16px; font-size: 18px; font-weight: 900; color: var(--blue); background: var(--blue-light); border-radius: 10px; font-family: 'JetBrains Mono', monospace; }
+.th-corner { padding: 12px 16px; font-size: 15px; font-weight: 600; color: var(--blue); background: var(--blue-light); border-radius: 10px; font-family: 'Noto Sans Thai', sans-serif; }
 .th-col, .th-row { padding: 10px 14px; font-size: 16px; font-weight: 700; background: var(--bg-subtle); border: 1px solid var(--border); border-radius: 10px; text-align: center; white-space: nowrap; font-family: 'JetBrains Mono', monospace; }
 .th-col { color: #2563eb; }
 .th-row { color: #dc2626; }
@@ -195,3 +195,193 @@ body { background: var(--bg); }
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
 input[type="number"] { -moz-appearance: textfield; }
+
+
+.direct-answer-wrap {
+  text-align: center;
+}
+.direct-answer-box {
+  background: var(--bg-subtle, #f8fafc);
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: 14px;
+  padding: 24px 20px;
+  display: inline-block;
+  margin: 0 auto;
+}
+.direct-answer-label {
+  font-size: 12px;
+  color: var(--text-lighter, #94a3b8);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+.direct-answer-input {
+  width: 160px;
+  min-height: 56px;
+  border: 2px solid var(--border, #e2e8f0);
+  border-radius: 12px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  margin: 0 auto;
+  transition: all 0.15s;
+}
+.da-focused {
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+}
+.da-value {
+  font-size: 24px;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text, #1e293b);
+}
+.da-value i { font-style: italic; }
+.da-value sup { font-size: 0.6em; }
+.da-placeholder {
+  font-size: 24px;
+  color: #cbd5e1;
+}
+
+
+
+/* ═══════════════════════════════════════════
+   เพิ่ม CSS นี้ต่อท้าย game.css
+   ═══════════════════════════════════════════ */
+
+/* ── Direct Answer (เอกนาม × เอกนาม) ── */
+.direct-answer-wrap {
+  text-align: center;
+}
+.direct-answer-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 24px 20px;
+  display: inline-block;
+  margin: 0 auto 8px;
+}
+.direct-answer-label {
+  font-size: 12px;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+.direct-answer-input {
+  width: 180px;
+  min-height: 60px;
+  border: 2px solid #e2e8f0;
+  border-radius: 14px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  margin: 0 auto;
+  transition: all 0.15s;
+}
+.da-focused {
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+}
+.da-value {
+  font-size: 26px;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  color: #1e293b;
+}
+.da-value i { font-style: italic; }
+.da-value sup { font-size: 0.6em; }
+.da-placeholder {
+  font-size: 26px;
+  color: #cbd5e1;
+}
+
+/* ── Empty cell placeholder (no hint) ── */
+.cell-placeholder-dim {
+  font-size: 18px;
+  color: #e2e8f0;
+  user-select: none;
+}
+
+/* ── Diagonal term input (full term) ── */
+.diag-input-term {
+  min-width: 64px;
+  min-height: 44px;
+  padding: 4px 8px;
+  border: 2px solid #d1d5db;
+  background: white;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s;
+}
+.diag-term-value {
+  font-size: 16px;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  color: #1e293b;
+}
+.diag-term-value i { font-style: italic; }
+.diag-term-value sup { font-size: 0.65em; vertical-align: super; }
+.diag-term-placeholder {
+  font-size: 16px;
+  color: #cbd5e1;
+}
+
+/* การจัดรูปแบบปุ่มขอบตาราง */
+.table-control-cell {
+  border: none !important;
+  background: transparent !important;
+  padding: 8px;
+  vertical-align: middle;
+}
+
+.table-control-empty {
+  border: none !important;
+  background: transparent !important;
+}
+
+.table-btn-group {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  align-items: center;
+}
+
+.table-add-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  color: #475569;
+  font-weight: 900;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.table-add-btn:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+  border-color: #94a3b8;
+  transform: translateY(-1px);
+}
+
+.table-add-btn:active {
+  transform: scale(0.9) translateY(0);
+  box-shadow: none;
+}
+

@@ -1,3 +1,4 @@
+// components/game/steps/ResultBox.jsx
 "use client";
 import { resultPolyJSX } from "@/lib/polynomial";
 

@@ -1,102 +1,93 @@
 "use client";
 import NumPad from "@/components/game/NumPad";
 import { ROW_COLOR, COL_COLOR } from "@/lib/gameConfig";
-import { renderVarLabel } from "@/lib/polynomial";
+import { renderTermInput } from "@/lib/polynomial";
 
 export default function HeadersStep({
-  poly1, poly2, deg1, deg2,
   headerRowValues, headerColValues,
-  focusedCell,
-  onCellFocus,
+  focusedCell, onCellFocus,
   onInput, onDelete, onNext, onSubmit,
-  getCellVarLabel,
+  userRows, userCols, setUserRows, setUserCols
 }) {
-  const rows = poly1.length;
-  const cols = poly2.length;
-
   return (
     <>
       <p className="instruction">
-        นำสัมประสิทธิ์จากโจทย์ไปใส่ในหัวตาราง —
-        <span style={{ color: ROW_COLOR, fontWeight: 700 }}> แดง</span> = แนวแถว (ซ้าย),
-        <span style={{ color: COL_COLOR, fontWeight: 700 }}> น้ำเงิน</span> = แนวคอลัมน์ (บน)
+        ปรับขนาดตารางให้ตรงกับโจทย์ แล้วนำพจน์มาใส่ให้ครบ (เช่น 3x^2)
       </p>
 
       <div className="grid-scroll">
         <table className="game-table">
           <thead>
             <tr>
-              <th className="th-corner">×</th>
-              {Array.from({ length: cols }, (_, j) => {
-                const pw  = deg2 - j;
-                const ck  = `c-${j}`;
+              <th className="th-corner">คูณ</th>
+              {Array.from({ length: userCols }, (_, j) => {
+                const ck = `c-${j}`;
                 const isFoc = focusedCell === ck;
+                const rawVal = headerColValues[j] || "";
                 return (
-                  <th
-                    key={j}
-                    className={`th-header-input ${isFoc ? "th-focused-col" : ""}`}
-                    onClick={() => onCellFocus(ck)}
-                  >
+                  <th key={j} className={`th-header-input ${isFoc ? "th-focused-col" : ""}`} onClick={() => onCellFocus(ck)}>
                     <div className="header-cell">
-                      <span className="header-val" style={{ color: COL_COLOR }}>
-                        {headerColValues[j] || ""}
-                      </span>
-                      {pw > 0 && (
-                        <span className="header-var" style={{ color: COL_COLOR }}>
-                          {pw === 1 ? <i>x</i> : <><i>x</i><sup>{pw}</sup></>}
-                        </span>
-                      )}
+                      {rawVal ? <span className="header-val" style={{ color: COL_COLOR }}>{renderTermInput(rawVal)}</span> : <span className="cell-placeholder">?</span>}
                       {isFoc && <div className="cell-cursor" style={{ background: COL_COLOR }} />}
                     </div>
                   </th>
                 );
               })}
+              
+              {/* --- ปุ่มบวกลบคอลัมน์ (อยู่ขวาบนสุด) --- */}
+              <th className="table-control-cell">
+                <div className="table-btn-group">
+                  <button className="table-add-btn" onClick={() => setUserCols(Math.max(1, userCols - 1))}>-</button>
+                  <button className="table-add-btn" onClick={() => setUserCols(userCols + 1)}>+</button>
+                </div>
+              </th>
+
             </tr>
           </thead>
           <tbody>
-            {Array.from({ length: rows }, (_, i) => {
-              const pw1  = deg1 - i;
-              const rk   = `r-${i}`;
+            {Array.from({ length: userRows }, (_, i) => {
+              const rk = `r-${i}`;
               const isFoc = focusedCell === rk;
+              const rawVal = headerRowValues[i] || "";
               return (
                 <tr key={i}>
-                  <td
-                    className={`th-header-input ${isFoc ? "th-focused-row" : ""}`}
-                    onClick={() => onCellFocus(rk)}
-                  >
+                  <td className={`th-header-input ${isFoc ? "th-focused-row" : ""}`} onClick={() => onCellFocus(rk)}>
                     <div className="header-cell">
-                      <span className="header-val" style={{ color: ROW_COLOR }}>
-                        {headerRowValues[i] || ""}
-                      </span>
-                      {pw1 > 0 && (
-                        <span className="header-var" style={{ color: ROW_COLOR }}>
-                          {pw1 === 1 ? <i>x</i> : <><i>x</i><sup>{pw1}</sup></>}
-                        </span>
-                      )}
+                      {rawVal ? <span className="header-val" style={{ color: ROW_COLOR }}>{renderTermInput(rawVal)}</span> : <span className="cell-placeholder">?</span>}
                       {isFoc && <div className="cell-cursor" style={{ background: ROW_COLOR }} />}
                     </div>
                   </td>
-                  {Array.from({ length: cols }, (_, j) => (
+                  {Array.from({ length: userCols }, (_, j) => (
                     <td key={j} className="td-cell td-empty">
                       <div className="cell-inner">
-                        <span className="cell-var">{renderVarLabel(getCellVarLabel(i, j))}</span>
+                        <span className="cell-placeholder-dim">&middot;</span>
                       </div>
                     </td>
                   ))}
+                  
+                  {/* --- เซลล์ว่างเพื่อให้ตารางเต็มรูปทรง (รองรับปุ่มด้านขวาบน) --- */}
+                  <td className="table-control-empty"></td>
                 </tr>
               );
             })}
+            
+            {/* --- แถวพิเศษสำหรับปุ่มบวกลบแถว (อยู่ซ้ายล่างสุด) --- */}
+            <tr>
+              <td className="table-control-cell">
+                <div className="table-btn-group">
+                  <button className="table-add-btn" onClick={() => setUserRows(Math.max(1, userRows - 1))}>-</button>
+                  <button className="table-add-btn" onClick={() => setUserRows(userRows + 1)}>+</button>
+                </div>
+              </td>
+              {/* colspan เพื่อเติมเต็มพื้นที่ด้านล่างให้ครบ */}
+              <td colSpan={userCols + 1} className="table-control-empty"></td>
+            </tr>
+
           </tbody>
         </table>
       </div>
 
-      <NumPad
-        onInput={onInput}
-        onDelete={onDelete}
-        onNext={onNext}
-        onSubmit={onSubmit}
-        showSubmit
-      />
+      <NumPad onInput={onInput} onDelete={onDelete} onNext={onNext} onSubmit={onSubmit} showSubmit />
     </>
   );
 }

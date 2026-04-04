@@ -9,12 +9,27 @@ export default function GameOverScreen({
   bestScores,
   onRestart,
   onMenu,
+  reason, // ✅ รับค่า reason เพื่อเช็คสาเหตุการจบเกม
 }) {
   return (
     <div className="app-container">
       <div className="gameover-wrap">
-        <div className="go-emoji">{totalCorrect > 0 ? "🎉" : "😅"}</div>
-        <h2 className="go-title">หมดเวลา!</h2>
+        {/* เปลี่ยน Emoji ตามสาเหตุ: ถ้าผิดเกินโชว์หัวกะโหลก ถ้าหมดเวลาโชว์นาฬิกาหรือพลุตามคะแนน */}
+        <div className="go-emoji">
+          {reason === "mistakes" ? "💀" : (totalCorrect > 0 ? "🎉" : "⏰")}
+        </div>
+        
+        {/* เปลี่ยนหัวข้อตามสาเหตุ */}
+        <h2 className="go-title">
+          {reason === "mistakes" ? "ตอบผิดเกินกำหนด!" : "หมดเวลา!"}
+        </h2>
+        
+        {/* ข้อความอธิบายเพิ่มเติม (ใส่หรือไม่ใส่ก็ได้ แต่มีไว้จะช่วยให้เข้าใจง่ายขึ้น) */}
+        <p style={{ textAlign: "center", marginBottom: "20px", color: "var(--text-color, #666)", opacity: 0.8 }}>
+          {reason === "mistakes" 
+            ? "คุณตอบผิดครบ 3 ครั้งแล้ว พยายามใหม่นะ" 
+            : "เวลาของคุณหมดลงแล้ว มาลองทำลายสถิติใหม่กัน"}
+        </p>
 
         <div className="go-stats">
           <div className="go-stat">
@@ -35,7 +50,7 @@ export default function GameOverScreen({
         )}
 
         <div className="go-btns">
-          <button className="btn-primary"   onClick={onRestart}>เล่นอีกครั้ง</button>
+          <button className="btn-primary" onClick={onRestart}>เล่นอีกครั้ง</button>
           <button className="btn-secondary" onClick={onMenu}>เมนูหลัก</button>
         </div>
       </div>
