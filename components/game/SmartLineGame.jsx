@@ -571,7 +571,11 @@ export default function SmartLineGame() {
 
         {step === "directAnswer" && !showResult && (
           <div className="direct-answer-wrap">
-            <p className="instruction">คูณเอกนาม 2 ตัว แล้วกรอกคำตอบเลย เช่น <b>6x^2</b> หรือ <b>-15x</b> หรือ <b>12</b></p>
+            {/* แก้ไขจุดนี้: เปลี่ยนจาก 6x^2 เป็น 6x<sup>2</sup> */}
+            <p className="instruction">
+              คูณเอกนาม 2 ตัว แล้วกรอกคำตอบเลย เช่น <b>6x<sup>2</sup></b> หรือ <b>-15x</b> หรือ <b>12</b>
+            </p>
+            
             <div className="direct-answer-box">
               <div className="direct-answer-label">คำตอบ</div>
               <div

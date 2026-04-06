@@ -12,7 +12,8 @@ export default function HeadersStep({
   return (
     <>
       <p className="instruction">
-        ปรับขนาดตารางให้ตรงกับโจทย์ แล้วนำพจน์มาใส่ให้ครบ (เช่น 3x^2)
+        {/* แก้ไขจุดนี้: เปลี่ยน ^ ให้เป็น sup */}
+        ปรับขนาดตารางให้ตรงกับโจทย์ แล้วนำพจน์มาใส่ให้ครบ (เช่น 3x<sup>2</sup>)
       </p>
 
       <div className="grid-scroll">
@@ -34,14 +35,12 @@ export default function HeadersStep({
                 );
               })}
               
-              {/* --- ปุ่มบวกลบคอลัมน์ (อยู่ขวาบนสุด) --- */}
               <th className="table-control-cell">
                 <div className="table-btn-group">
                   <button className="table-add-btn" onClick={() => setUserCols(Math.max(1, userCols - 1))}>-</button>
                   <button className="table-add-btn" onClick={() => setUserCols(userCols + 1)}>+</button>
                 </div>
               </th>
-
             </tr>
           </thead>
           <tbody>
@@ -64,14 +63,11 @@ export default function HeadersStep({
                       </div>
                     </td>
                   ))}
-                  
-                  {/* --- เซลล์ว่างเพื่อให้ตารางเต็มรูปทรง (รองรับปุ่มด้านขวาบน) --- */}
                   <td className="table-control-empty"></td>
                 </tr>
               );
             })}
             
-            {/* --- แถวพิเศษสำหรับปุ่มบวกลบแถว (อยู่ซ้ายล่างสุด) --- */}
             <tr>
               <td className="table-control-cell">
                 <div className="table-btn-group">
@@ -79,10 +75,8 @@ export default function HeadersStep({
                   <button className="table-add-btn" onClick={() => setUserRows(userRows + 1)}>+</button>
                 </div>
               </td>
-              {/* colspan เพื่อเติมเต็มพื้นที่ด้านล่างให้ครบ */}
               <td colSpan={userCols + 1} className="table-control-empty"></td>
             </tr>
-
           </tbody>
         </table>
       </div>

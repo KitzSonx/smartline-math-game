@@ -12,7 +12,8 @@ export default function GridStep({
   return (
     <>
       <p className="instruction">
-        คูณแต่ละคู่แล้วกรอกผลลัพธ์เต็ม เช่น <b>6x^2</b> หรือ <b>-3x</b> หรือ <b>5</b>
+        {/* แก้ไขจุดนี้: เปลี่ยน ^ ให้เป็น sup */}
+        คูณแต่ละคู่แล้วกรอกผลลัพธ์เต็ม เช่น <b>6x<sup>2</sup></b> หรือ <b>-3x</b> หรือ <b>5</b>
       </p>
 
       <div className="grid-scroll">

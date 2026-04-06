@@ -16,7 +16,8 @@ export default function DiagonalStep({
   return (
     <>
       <p className="instruction">
-        มาร์คสีแนวทแยง — บวกพจน์สีเดียวกัน แล้วกรอกคำตอบเต็ม เช่น <b>3x^2</b>
+        {/* แก้ไขจุดที่ 1: เปลี่ยนตัวอย่างในคำแนะนำ */}
+        มาร์คสีแนวทแยง — บวกพจน์สีเดียวกัน แล้วกรอกคำตอบเต็ม เช่น <b>3x<sup>2</sup></b>
       </p>
 
       {/* Grid with diagonal colors */}
@@ -98,7 +99,10 @@ export default function DiagonalStep({
 
       {/* Answer inputs — full term */}
       <div className="diag-answer-section">
-        <div className="diag-answer-label">กรอกคำตอบเต็ม เช่น 3x^2 (ดีกรีสูง → ต่ำ)</div>
+        {/* แก้ไขจุดที่ 2: เปลี่ยนตัวอย่างใน Label ส่วนกรอกคำตอบ */}
+        <div className="diag-answer-label">
+          กรอกคำตอบเต็ม เช่น 3x<sup>2</sup> (ดีกรีสูง → ต่ำ)
+        </div>
         <div className="diag-answer-row">
           {diagonalGroups.map((_, d) => {
             const dc = getDiagColor(d);
