@@ -6,24 +6,36 @@ export default function MenuScreen({ bestScores, bestTimes, onStart, onHowTo }) 
   return (
     <div className="app-container menu-bg">
       <div className="menu-wrap">
-        {/* 1. ส่วน Logo และชื่อเกม */}
+        
+        {/* 1. ส่วน Logo / Cover Image */}
         <div className="logo-area">
-          <div className="logo-x">✕</div>
-          <h1 className="logo-title">Smart Line</h1>
-          <h2 className="logo-sub">Multiplication Game</h2>
-          <p className="logo-thai">เกมพหุนามประยุกต์เส้นญี่ปุ่น</p>
-          <p className="logo-desc">
-            ฝึกคูณพหุนามด้วยเทคนิคเส้นญี่ปุ่น<br />
-            ใส่สัมประสิทธิ์ → คูณในตาราง → รวมแนวทแยง → คำตอบ!
-          </p>
+          <div className="cover-image-wrapper">
+            <img 
+              src="/Smart_Line_Game_Logo.png" 
+              alt="Smart Line Multiplication Game" 
+              className="game-cover-image"
+            />
+          </div>
+          <div className="hero-features">
+            <p className="hero-subtitle">✨ ปลดล็อกสกิลคูณพหุนาม ด้วยเทคนิคเส้นญี่ปุ่น!</p>
+            <div className="hero-steps">
+              <span className="h-step">🔢 ใส่ค่า</span>
+              <span className="h-arrow">➔</span>
+              <span className="h-step">✖️ คูณในตาราง</span>
+              <span className="h-arrow">➔</span>
+              <span className="h-step">↗️ รวมแนวทแยง</span>
+              <span className="h-arrow">➔</span>
+              <span className="h-step h-final">🎯 คำตอบ!</span>
+            </div>
+          </div>
         </div>
 
-        {/* 2. ย้ายปุ่มวิธีเล่นมาไว้ตรงนี้ (ก่อนเลือกด่าน) */}
-        <div style={{ marginBottom: '24px' }}>
+        {/* 2. ปุ่มวิธีเล่น */}
+        <div style={{ marginBottom: '32px' }}>
           <button 
             className="howto-btn" 
             onClick={() => { SFX.menuClick(); onHowTo(); }}
-            style={{ width: '100%', maxWidth: '200px' }} // ปรับให้ดูเด่นและพอดี
+            style={{ width: '100%', maxWidth: '220px', fontSize: '16px' }} 
           >
             📖 วิธีเล่น
           </button>

@@ -39,26 +39,64 @@ body { background: var(--bg); }
 .menu-bg { background: linear-gradient(180deg, #f0f4ff 0%, #ffffff 40%); }
 
 /* ── Menu ── */
-.menu-wrap { max-width: 560px; margin: 0 auto; padding: 48px 20px 40px; text-align: center; }
-.logo-area { margin-bottom: 36px; }
-.logo-x { font-size: 52px; font-weight: 900; color: var(--blue); font-family: 'JetBrains Mono', monospace; line-height: 1; text-shadow: 0 2px 12px rgba(37,99,235,0.2); }
-.logo-title { font-size: 40px; font-weight: 900; letter-spacing: -1.5px; line-height: 1.1; margin-top: 4px; }
-.logo-sub { font-size: 15px; font-weight: 500; color: var(--text-light); letter-spacing: 3px; text-transform: uppercase; margin-top: 4px; }
-.logo-thai { font-size: 14px; color: var(--blue); font-weight: 600; margin-top: 12px; }
-.logo-desc { font-size: 13px; color: var(--text-lighter); line-height: 1.7; margin-top: 8px; }
+.menu-wrap { 
+  max-width: 560px; 
+  margin: 0 auto; 
+  padding: 48px 20px 40px; 
+  text-align: center; 
+}
+.logo-area { 
+  margin-bottom: 28px; 
+}
+
+/* ส่วนตั้งค่ารูปภาพปกและแอนิเมชัน */
+.cover-image-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 16px;
+  animation: float 3s ease-in-out infinite; /* เอฟเฟกต์ลอยขึ้นลงเบาๆ */
+}
+.game-cover-image {
+  width: 100%;
+  max-width: 420px; /* ปรับขนาดความกว้างสูงสุดไม่ให้ล้นจอ */
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0px 10px 20px rgba(37, 99, 235, 0.25)); /* ใส่เงาให้รูปดูป๊อปอัปขึ้นมา */
+}
+
+/* คีย์เฟรมสำหรับเอฟเฟกต์ลอย */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.logo-desc { 
+  font-size: 14px; 
+  color: var(--text-light); 
+  line-height: 1.7; 
+  margin-top: 16px;
+  font-weight: 500;
+  background: var(--blue-light);
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px dashed var(--blue);
+}
 
 .level-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 28px; }
 .level-card { background: var(--bg); border: 2px solid var(--border); border-radius: 16px; padding: 18px 12px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; transition: all 0.2s; font-family: inherit; color: var(--text); box-shadow: var(--shadow); }
-.level-card:hover { border-color: var(--blue); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.level-card:hover { border-color: var(--blue); transform: translateY(-3px); box-shadow: var(--shadow-lg); }
 .level-card:active { transform: scale(0.97); }
-.lv-emoji { font-size: 30px; }
+.lv-emoji { font-size: 34px; margin-bottom: 4px; }
 .lv-name { font-size: 16px; font-weight: 800; }
 .lv-desc { font-size: 11px; color: var(--text-lighter); }
-.lv-best { font-size: 11px; color: var(--blue); font-weight: 600; }
-.lv-best-time { font-size: 11px; color: var(--green); font-weight: 600; }
+.lv-best { font-size: 12px; color: var(--blue); font-weight: 700; margin-top: 4px; }
+.lv-best-time { font-size: 12px; color: var(--green); font-weight: 700; }
 
-.howto-btn { background: var(--blue); border: none; color: white; padding: 12px 32px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: inherit; box-shadow: 0 2px 8px rgba(37,99,235,0.3); transition: all 0.2s; }
-.howto-btn:hover { background: var(--blue-dark); transform: translateY(-1px); }
+.howto-btn { background: var(--blue); border: none; color: white; padding: 14px 32px; border-radius: 14px; font-size: 16px; font-weight: 700; cursor: pointer; font-family: inherit; box-shadow: 0 4px 12px rgba(37,99,235,0.3); transition: all 0.2s; }
+.howto-btn:hover { background: var(--blue-dark); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(37,99,235,0.4); }
+.howto-btn:active { transform: translateY(0); box-shadow: 0 2px 8px rgba(37,99,235,0.3); }
 
 /* ── How To ── */
 .howto-wrap { max-width: 540px; margin: 0 auto; padding: 40px 20px; }
@@ -385,3 +423,71 @@ input[type="number"] { -moz-appearance: textfield; }
   box-shadow: none;
 }
 
+/* ── Hero Features & Steps ── */
+.hero-features {
+  background: var(--bg-subtle);
+  border: 2px solid var(--border-light);
+  border-radius: 18px;
+  padding: 16px 20px;
+  margin: 12px auto 0;
+  max-width: 560px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.02), 0 4px 12px rgba(0,0,0,0.04);
+}
+
+.hero-subtitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--blue-dark);
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+}
+
+.hero-steps {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.h-step {
+  display: inline-flex;
+  align-items: center;
+  background: white;
+  border: 1px solid var(--border);
+  padding: 6px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+  transition: transform 0.2s;
+  white-space: nowrap;
+}
+
+.h-step:hover {
+  transform: translateY(-2px);
+  border-color: var(--blue-light);
+}
+
+.h-arrow {
+  color: var(--text-lighter);
+  font-size: 11px;
+  font-weight: 900;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.h-final {
+  background: #dcfce7;
+  border-color: #bbf7d0;
+  color: var(--green);
+  font-weight: 800;
+  box-shadow: 0 2px 8px rgba(22, 163, 74, 0.15);
+}
+
+@media (max-width: 500px) {
+  .hero-steps {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
