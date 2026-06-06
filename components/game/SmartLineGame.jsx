@@ -145,13 +145,13 @@ export default function SmartLineGame() {
     return len;
   };
 
-  const rows = getGridLength(poly1);
-  const cols = getGridLength(poly2);
+  const rows = getGridLength(poly2);
+  const cols = getGridLength(poly1);
 
   const correctGrid = {};
   for (let r = 0; r < rows; r++)
     for (let c = 0; c < cols; c++)
-      correctGrid[`${r}-${c}`] = poly1[r] * poly2[c];
+      correctGrid[`${r}-${c}`] = poly2[r] * poly1[c];
 
   const numDiags = rows + cols - 1;
   const diagonalGroups = [];
@@ -175,8 +175,8 @@ export default function SmartLineGame() {
     if (step === "directAnswer") return ["ans-0"];
     if (step === "headers") {
       const keys = [];
-      for (let r = 0; r < userRows; r++) keys.push(`r-${r}`);
       for (let c = 0; c < userCols; c++) keys.push(`c-${c}`);
+      for (let r = 0; r < userRows; r++) keys.push(`r-${r}`);
       return keys;
     }
     if (step === "grid") {
@@ -290,7 +290,7 @@ export default function SmartLineGame() {
       setFocusedCell("ans-0");
     } else {
       setStep("headers");
-      setFocusedCell("r-0");
+      setFocusedCell("c-0");
     }
   }, []);
 
@@ -354,15 +354,15 @@ export default function SmartLineGame() {
 
     // 2. ถ้าขนาดถูกต้อง ให้ตรวจค่าที่กรอกตามปกติ (โค้ดที่เพิ่งแก้ไปก่อนหน้านี้)
     let ok = true, filled = true;
-    for (let r = 0; r < rows; r++) {
-      const v = headerRowValues[r];
-      if (!v || v === "-") filled = false;
-      else if (!checkTermInput(v, poly1[r], deg1 - r)) ok = false;
-    }
     for (let c = 0; c < cols; c++) {
       const v = headerColValues[c];
       if (!v || v === "-") filled = false;
-      else if (!checkTermInput(v, poly2[c], deg2 - c)) ok = false;
+      else if (!checkTermInput(v, poly1[c], deg1 - c)) ok = false;
+    }
+    for (let r = 0; r < rows; r++) {
+      const v = headerRowValues[r];
+      if (!v || v === "-") filled = false;
+      else if (!checkTermInput(v, poly2[r], deg2 - r)) ok = false;
     }
     if (!filled) { doShake(); return; }
     if (ok) { SFX.stepComplete(); setStep("grid"); setFocusedCell("g-0-0"); spawnParticles(8); }
@@ -377,7 +377,7 @@ export default function SmartLineGame() {
         if (!v || v === "-") {
           filled = false;
         } else {
-          const expected = getExpectedTerm(poly1, poly2, deg1, deg2, r, c);
+          const expected = getExpectedTerm(poly2, poly1, deg2, deg1, r, c);
           if (!checkTermInput(v, expected.coeff, expected.power)) ok = false;
         }
       }
@@ -492,14 +492,14 @@ export default function SmartLineGame() {
         {/* ใช้ flex หุ้มกรอบนอกสุด และใส่ gap: '8px' เพื่อให้มีระยะห่างระหว่าง 2 วงเล็บ */}
         <div className="q-poly" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', gap: '8px' }}>
           
-          {/* เอา display: 'inline-flex' ออกไป เพื่อให้การเว้นวรรคของ Text กลับมาทำงานปกติ */}
-          <span style={{ color: ROW_COLOR, lineHeight: '1.5' }}>
+          {/* poly1 = ตัวตั้ง = แนวนอน = COL_COLOR (แดง), poly2 = ตัวคูณ = แนวตั้ง = ROW_COLOR (น้ำเงิน) */}
+          <span style={{ color: COL_COLOR, lineHeight: '1.5' }}>
             <span className="q-bracket">(</span>
             {renderPolyJSX(poly1)}
             <span className="q-bracket">)</span>
           </span>
 
-          <span style={{ color: COL_COLOR, lineHeight: '1.5' }}>
+          <span style={{ color: ROW_COLOR, lineHeight: '1.5' }}>
             <span className="q-bracket">(</span>
             {renderPolyJSX(poly2)}
             <span className="q-bracket">)</span>
@@ -509,9 +509,9 @@ export default function SmartLineGame() {
 
         {step === "headers" && (
           <div className="q-hint">
-            <span style={{ color: ROW_COLOR }}>■</span> ตัวตั้ง (แถว)
+            <span style={{ color: COL_COLOR }}>■</span> ตัวตั้ง (แนวนอน)
             &nbsp;&nbsp;
-            <span style={{ color: COL_COLOR }}>■</span> ตัวคูณ (คอลัมน์)
+            <span style={{ color: ROW_COLOR }}>■</span> ตัวคูณ (แนวตั้ง)
           </div>
         )}
       </div>
@@ -531,8 +531,7 @@ export default function SmartLineGame() {
 
         {step === "headers" && (
           <HeadersStep
-            // ✅ เติม .slice(0, rows) และ .slice(0, cols)
-            poly1={poly1.slice(0, rows)} poly2={poly2.slice(0, cols)} deg1={deg1} deg2={deg2}
+            poly1={poly1.slice(0, cols)} poly2={poly2.slice(0, rows)} deg1={deg1} deg2={deg2}
             headerRowValues={headerRowValues} headerColValues={headerColValues}
             focusedCell={focusedCell} onCellFocus={handleCellFocus}
             onInput={handleNumpadInput} onDelete={handleNumpadDelete}
@@ -545,8 +544,7 @@ export default function SmartLineGame() {
 
         {step === "grid" && (
           <GridStep
-            // ✅ เติม .slice(0, rows) และ .slice(0, cols)
-            poly1={poly1.slice(0, rows)} poly2={poly2.slice(0, cols)} deg1={deg1} deg2={deg2}
+            poly1={poly1.slice(0, cols)} poly2={poly2.slice(0, rows)} deg1={deg1} deg2={deg2}
             gridValues={gridValues} focusedCell={focusedCell}
             onCellFocus={handleCellFocus}
             onInput={handleNumpadInput} onDelete={handleNumpadDelete}
@@ -557,8 +555,7 @@ export default function SmartLineGame() {
 
         {step === "diagonal" && !showResult && (
           <DiagonalStep
-            // ✅ เติม .slice(0, rows) และ .slice(0, cols)
-            poly1={poly1.slice(0, rows)} poly2={poly2.slice(0, cols)} deg1={deg1} deg2={deg2}
+            poly1={poly1.slice(0, cols)} poly2={poly2.slice(0, rows)} deg1={deg1} deg2={deg2}
             correctGrid={correctGrid} diagonalGroups={diagonalGroups}
             diagValues={diagValues} focusedCell={focusedCell}
             highlightDiag={highlightDiag} onCellFocus={handleCellFocus}

@@ -90,22 +90,22 @@ export default function HowToScreen({ onBack }) {
             <div className="demo-question">
               <div className="demo-q-label">โจทย์:</div>
               <div className="demo-q-poly">
-                <span className="demo-bracket" style={{ color: ROW_COLOR }}>(</span>
-                <span style={{ color: ROW_COLOR, fontWeight: 700 }}>2<i>x</i> + 3</span>
-                <span className="demo-bracket" style={{ color: ROW_COLOR }}>)</span>
-                <span className="demo-mul">×</span>
                 <span className="demo-bracket" style={{ color: COL_COLOR }}>(</span>
-                <span style={{ color: COL_COLOR, fontWeight: 700 }}><i>x</i> − 1</span>
+                <span style={{ color: COL_COLOR, fontWeight: 700 }}>2<i>x</i> + 3</span>
                 <span className="demo-bracket" style={{ color: COL_COLOR }}>)</span>
+                <span className="demo-mul">×</span>
+                <span className="demo-bracket" style={{ color: ROW_COLOR }}>(</span>
+                <span style={{ color: ROW_COLOR, fontWeight: 700 }}><i>x</i> − 1</span>
+                <span className="demo-bracket" style={{ color: ROW_COLOR }}>)</span>
               </div>
               <div className="demo-hint-row">
                 <div className="demo-hint-item">
-                  <span className="demo-dot" style={{ background: ROW_COLOR }} />
-                  <span>ตัวตั้ง (แถว)</span>
+                  <span className="demo-dot" style={{ background: COL_COLOR }} />
+                  <span>ตัวตั้ง (แนวนอน)</span>
                 </div>
                 <div className="demo-hint-item">
-                  <span className="demo-dot" style={{ background: COL_COLOR }} />
-                  <span>ตัวคูณ (คอลัมน์)</span>
+                  <span className="demo-dot" style={{ background: ROW_COLOR }} />
+                  <span>ตัวคูณ (แนวตั้ง)</span>
                 </div>
               </div>
             </div>
@@ -118,16 +118,16 @@ export default function HowToScreen({ onBack }) {
                 <thead>
                   <tr>
                     <th className="dt-corner">×</th>
-                    <th className={`dt-hdr dt-col ${animPhase >= 2 ? "dt-filled" : "dt-empty-col"}`}>
-                      {animPhase >= 2 ? (
-                        <span style={{ color: COL_COLOR }}>1<i>x</i></span>
+                    <th className={`dt-hdr dt-col ${animPhase >= 0 ? "dt-filled" : "dt-empty-col"}`}>
+                      {animPhase >= 0 ? (
+                        <span style={{ color: COL_COLOR }}>2<i>x</i></span>
                       ) : (
                         <span className="dt-placeholder">?</span>
                       )}
                     </th>
-                    <th className={`dt-hdr dt-col ${animPhase >= 3 ? "dt-filled" : "dt-empty-col"}`}>
-                      {animPhase >= 3 ? (
-                        <span style={{ color: COL_COLOR }}>−1</span>
+                    <th className={`dt-hdr dt-col ${animPhase >= 1 ? "dt-filled" : "dt-empty-col"}`}>
+                      {animPhase >= 1 ? (
+                        <span style={{ color: COL_COLOR }}>3</span>
                       ) : (
                         <span className="dt-placeholder">?</span>
                       )}
@@ -136,9 +136,9 @@ export default function HowToScreen({ onBack }) {
                 </thead>
                 <tbody>
                   <tr>
-                    <td className={`dt-hdr dt-row ${animPhase >= 0 ? "dt-filled" : "dt-empty-row"}`}>
-                      {animPhase >= 0 ? (
-                        <span style={{ color: ROW_COLOR }}>2<i>x</i></span>
+                    <td className={`dt-hdr dt-row ${animPhase >= 2 ? "dt-filled" : "dt-empty-row"}`}>
+                      {animPhase >= 2 ? (
+                        <span style={{ color: ROW_COLOR }}>1<i>x</i></span>
                       ) : (
                         <span className="dt-placeholder">?</span>
                       )}
@@ -147,9 +147,9 @@ export default function HowToScreen({ onBack }) {
                     <td className="dt-cell dt-cell-empty"><span className="dt-var"><i>x</i></span></td>
                   </tr>
                   <tr>
-                    <td className={`dt-hdr dt-row ${animPhase >= 1 ? "dt-filled" : "dt-empty-row"}`}>
-                      {animPhase >= 1 ? (
-                        <span style={{ color: ROW_COLOR }}>3</span>
+                    <td className={`dt-hdr dt-row ${animPhase >= 3 ? "dt-filled" : "dt-empty-row"}`}>
+                      {animPhase >= 3 ? (
+                        <span style={{ color: ROW_COLOR }}>−1</span>
                       ) : (
                         <span className="dt-placeholder">?</span>
                       )}
@@ -160,8 +160,8 @@ export default function HowToScreen({ onBack }) {
                 </tbody>
               </table>
               <div className="demo-anim-label">
-                {animPhase <= 1 && <span style={{ color: ROW_COLOR }}>กรอกตัวตั้ง...</span>}
-                {animPhase >= 2 && <span style={{ color: COL_COLOR }}>กรอกตัวคูณ...</span>}
+                {animPhase <= 1 && <span style={{ color: COL_COLOR }}>กรอกตัวตั้ง (แนวนอน)...</span>}
+                {animPhase >= 2 && <span style={{ color: ROW_COLOR }}>กรอกตัวคูณ (แนวตั้ง)...</span>}
               </div>
             </div>
           )}
@@ -173,24 +173,24 @@ export default function HowToScreen({ onBack }) {
                 <thead>
                   <tr>
                     <th className="dt-corner">×</th>
-                    <th className="dt-hdr dt-col dt-filled"><span style={{ color: COL_COLOR }}>1<i>x</i></span></th>
-                    <th className="dt-hdr dt-col dt-filled"><span style={{ color: COL_COLOR }}>−1</span></th>
+                    <th className="dt-hdr dt-col dt-filled"><span style={{ color: COL_COLOR }}>2<i>x</i></span></th>
+                    <th className="dt-hdr dt-col dt-filled"><span style={{ color: COL_COLOR }}>3</span></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td className="dt-hdr dt-row dt-filled"><span style={{ color: ROW_COLOR }}>2<i>x</i></span></td>
+                    <td className="dt-hdr dt-row dt-filled"><span style={{ color: ROW_COLOR }}>1<i>x</i></span></td>
                     <td className={`dt-cell ${animPhase >= 1 ? "dt-cell-done" : "dt-cell-empty"}`}>
                       {animPhase >= 1 ? <span><b>2</b><i>x</i><sup>2</sup></span> : <span className="dt-var"><i>x</i><sup>2</sup></span>}
                     </td>
                     <td className={`dt-cell ${animPhase >= 2 ? "dt-cell-done" : "dt-cell-empty"}`}>
-                      {animPhase >= 2 ? <span><b>−2</b><i>x</i></span> : <span className="dt-var"><i>x</i></span>}
+                      {animPhase >= 2 ? <span><b>3</b><i>x</i></span> : <span className="dt-var"><i>x</i></span>}
                     </td>
                   </tr>
                   <tr>
-                    <td className="dt-hdr dt-row dt-filled"><span style={{ color: ROW_COLOR }}>3</span></td>
+                    <td className="dt-hdr dt-row dt-filled"><span style={{ color: ROW_COLOR }}>−1</span></td>
                     <td className={`dt-cell ${animPhase >= 3 ? "dt-cell-done" : "dt-cell-empty"}`}>
-                      {animPhase >= 3 ? <span><b>3</b><i>x</i></span> : <span className="dt-var"><i>x</i></span>}
+                      {animPhase >= 3 ? <span><b>−2</b><i>x</i></span> : <span className="dt-var"><i>x</i></span>}
                     </td>
                     <td className={`dt-cell ${animPhase >= 4 ? "dt-cell-done" : "dt-cell-empty"}`}>
                       {animPhase >= 4 ? <span><b>−3</b></span> : <span className="dt-var"></span>}
@@ -200,10 +200,10 @@ export default function HowToScreen({ onBack }) {
               </table>
               <div className="demo-anim-label">
                 {animPhase === 0 && <span>เตรียมคูณ...</span>}
-                {animPhase === 1 && <span>2 × 1 = <b>2</b>x²</span>}
-                {animPhase === 2 && <span>2 × (−1) = <b>−2</b>x</span>}
-                {animPhase === 3 && <span>3 × 1 = <b>3</b>x</span>}
-                {animPhase === 4 && <span>3 × (−1) = <b>−3</b></span>}
+                {animPhase === 1 && <span>1 × 2 = <b>2</b>x²</span>}
+                {animPhase === 2 && <span>1 × 3 = <b>3</b>x</span>}
+                {animPhase === 3 && <span>(−1) × 2 = <b>−2</b>x</span>}
+                {animPhase === 4 && <span>(−1) × 3 = <b>−3</b></span>}
               </div>
             </div>
           )}
@@ -215,13 +215,13 @@ export default function HowToScreen({ onBack }) {
                 <thead>
                   <tr>
                     <th className="dt-corner">×</th>
-                    <th className="dt-hdr dt-col dt-filled"><span style={{ color: COL_COLOR }}>1<i>x</i></span></th>
-                    <th className="dt-hdr dt-col dt-filled"><span style={{ color: COL_COLOR }}>−1</span></th>
+                    <th className="dt-hdr dt-col dt-filled"><span style={{ color: COL_COLOR }}>2<i>x</i></span></th>
+                    <th className="dt-hdr dt-col dt-filled"><span style={{ color: COL_COLOR }}>3</span></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td className="dt-hdr dt-row dt-filled"><span style={{ color: ROW_COLOR }}>2<i>x</i></span></td>
+                    <td className="dt-hdr dt-row dt-filled"><span style={{ color: ROW_COLOR }}>1<i>x</i></span></td>
                     <td className="dt-cell dt-diag-cell" style={{
                       background: animPhase >= 0 ? `${DIAG_COLORS[0]}20` : "white",
                       borderColor: animPhase >= 0 ? DIAG_COLORS[0] : "#e2e8f0",
@@ -234,17 +234,17 @@ export default function HowToScreen({ onBack }) {
                       borderColor: animPhase >= 1 ? DIAG_COLORS[1] : "#e2e8f0",
                       boxShadow: animPhase === 1 ? `0 0 0 2px ${DIAG_COLORS[1]}` : "none",
                     }}>
-                      <span><b>−2</b><i>x</i></span>
+                      <span><b>3</b><i>x</i></span>
                     </td>
                   </tr>
                   <tr>
-                    <td className="dt-hdr dt-row dt-filled"><span style={{ color: ROW_COLOR }}>3</span></td>
+                    <td className="dt-hdr dt-row dt-filled"><span style={{ color: ROW_COLOR }}>−1</span></td>
                     <td className="dt-cell dt-diag-cell" style={{
                       background: animPhase >= 1 ? `${DIAG_COLORS[1]}20` : "white",
                       borderColor: animPhase >= 1 ? DIAG_COLORS[1] : "#e2e8f0",
                       boxShadow: animPhase === 1 ? `0 0 0 2px ${DIAG_COLORS[1]}` : "none",
                     }}>
-                      <span><b>3</b><i>x</i></span>
+                      <span><b>−2</b><i>x</i></span>
                     </td>
                     <td className="dt-cell dt-diag-cell" style={{
                       background: animPhase >= 2 ? `${DIAG_COLORS[2]}20` : "white",
@@ -267,7 +267,7 @@ export default function HowToScreen({ onBack }) {
                 </div>
                 <div className={`demo-diag-item ${animPhase >= 1 ? "ddi-visible" : ""}`}>
                   <span className="ddi-dot" style={{ background: DIAG_COLORS[1] }} />
-                  <span className="ddi-calc">(−2) + 3 = 1</span>
+                  <span className="ddi-calc">3 + (−2) = 1</span>
                   <span className="ddi-eq">→</span>
                   <span className="ddi-result" style={{ color: DIAG_COLORS[1] }}>1<i>x</i></span>
                 </div>
@@ -366,11 +366,11 @@ const howtoCSS = `
     padding: 8px 14px; font-size: 15px; font-weight: 700; border-radius: 10px;
     text-align: center; transition: all 0.4s;
   }
-  .dt-col { border: 2px dashed #93c5fd; background: #eff6ff; }
-  .dt-row { border: 2px dashed #fca5a5; background: #fef2f2; }
+  .dt-col { border: 2px dashed #fca5a5; background: #fef2f2; }
+  .dt-row { border: 2px dashed #93c5fd; background: #eff6ff; }
   .dt-filled { border-style: solid !important; }
-  .dt-empty-col { border-color: #bfdbfe; }
-  .dt-empty-row { border-color: #fecaca; }
+  .dt-empty-col { border-color: #fecaca; }
+  .dt-empty-row { border-color: #bfdbfe; }
   .dt-placeholder { color: var(--text-lighter); font-weight: 400; }
 
   .dt-cell {

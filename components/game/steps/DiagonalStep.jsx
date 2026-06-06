@@ -26,8 +26,8 @@ export default function DiagonalStep({
           <thead>
             <tr>
               <th className="th-corner">คูณ</th>
-              {poly2.map((c, j) => {
-                const pw = deg2 - j;
+              {poly1.map((c, j) => {
+                const pw = deg1 - j;
                 return (
                   <th key={j} className="th-col">
                     <span>{c >= 0 ? c : `(${c})`}</span>
@@ -42,8 +42,8 @@ export default function DiagonalStep({
             </tr>
           </thead>
           <tbody>
-            {poly1.map((r, i) => {
-              const pw1 = deg1 - i;
+            {poly2.map((r, i) => {
+              const pw1 = deg2 - i;
               return (
                 <tr key={i}>
                   <td className="th-row">
@@ -54,7 +54,7 @@ export default function DiagonalStep({
                       </span>
                     )}
                   </td>
-                  {poly2.map((_, j) => {
+                  {poly1.map((_, j) => {
                     const diagIdx = i + j;
                     const isHL = highlightDiag === diagIdx;
                     const dc = getDiagColor(diagIdx);

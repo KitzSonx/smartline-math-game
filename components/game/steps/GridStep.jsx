@@ -21,8 +21,8 @@ export default function GridStep({
           <thead>
             <tr>
               <th className="th-corner">คูณ</th>
-              {poly2.map((c, j) => {
-                const pw = deg2 - j;
+              {poly1.map((c, j) => {
+                const pw = deg1 - j;
                 return (
                   <th key={j} className="th-col">
                     <span>{c >= 0 ? c : `(${c})`}</span>
@@ -37,8 +37,8 @@ export default function GridStep({
             </tr>
           </thead>
           <tbody>
-            {poly1.map((r, i) => {
-              const pw1 = deg1 - i;
+            {poly2.map((r, i) => {
+              const pw1 = deg2 - i;
               return (
                 <tr key={i}>
                   <td className="th-row">
@@ -49,7 +49,7 @@ export default function GridStep({
                       </span>
                     )}
                   </td>
-                  {poly2.map((_, j) => {
+                  {poly1.map((_, j) => {
                     const key = `${i}-${j}`;
                     const ck = `g-${key}`;
                     const isFoc = focusedCell === ck;
