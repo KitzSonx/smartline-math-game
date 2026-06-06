@@ -509,9 +509,9 @@ export default function SmartLineGame() {
 
         {step === "headers" && (
           <div className="q-hint">
-            <span style={{ color: ROW_COLOR }}>■</span> วงเล็บแรก → หัวแถว
+            <span style={{ color: ROW_COLOR }}>■</span> ตัวตั้ง (แถว)
             &nbsp;&nbsp;
-            <span style={{ color: COL_COLOR }}>■</span> วงเล็บสอง → หัวคอลัมน์
+            <span style={{ color: COL_COLOR }}>■</span> ตัวคูณ (คอลัมน์)
           </div>
         )}
       </div>

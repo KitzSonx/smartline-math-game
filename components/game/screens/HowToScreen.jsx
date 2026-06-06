@@ -49,7 +49,7 @@ export default function HowToScreen({ onBack }) {
     {
       num: 3,
       title: "คูณในตาราง",
-      desc: "คูณตัวเลขแต่ละคู่ (แถว × คอลัมน์) กรอกผลลัพธ์",
+      desc: "คูณตัวเลขแต่ละคู่ (ตัวตั้ง × ตัวคูณ) กรอกผลลัพธ์",
     },
     {
       num: 4,
@@ -101,11 +101,11 @@ export default function HowToScreen({ onBack }) {
               <div className="demo-hint-row">
                 <div className="demo-hint-item">
                   <span className="demo-dot" style={{ background: ROW_COLOR }} />
-                  <span>วงเล็บแรก (แดง) → หัวแถว</span>
+                  <span>ตัวตั้ง (แถว)</span>
                 </div>
                 <div className="demo-hint-item">
                   <span className="demo-dot" style={{ background: COL_COLOR }} />
-                  <span>วงเล็บสอง (น้ำเงิน) → หัวคอลัมน์</span>
+                  <span>ตัวคูณ (คอลัมน์)</span>
                 </div>
               </div>
             </div>
@@ -160,8 +160,8 @@ export default function HowToScreen({ onBack }) {
                 </tbody>
               </table>
               <div className="demo-anim-label">
-                {animPhase <= 1 && <span style={{ color: ROW_COLOR }}>กรอกหัวแถว (แดง)...</span>}
-                {animPhase >= 2 && <span style={{ color: COL_COLOR }}>กรอกหัวคอลัมน์ (น้ำเงิน)...</span>}
+                {animPhase <= 1 && <span style={{ color: ROW_COLOR }}>กรอกตัวตั้ง...</span>}
+                {animPhase >= 2 && <span style={{ color: COL_COLOR }}>กรอกตัวคูณ...</span>}
               </div>
             </div>
           )}
