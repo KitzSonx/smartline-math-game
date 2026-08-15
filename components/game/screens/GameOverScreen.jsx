@@ -16,17 +16,19 @@ export default function GameOverScreen({
       <div className="gameover-wrap">
         {/* เปลี่ยน Emoji ตามสาเหตุ: ถ้าผิดเกินโชว์หัวกะโหลก ถ้าหมดเวลาโชว์นาฬิกาหรือพลุตามคะแนน */}
         <div className="go-emoji">
-          {reason === "mistakes" ? "💀" : (totalCorrect > 0 ? "🎉" : "⏰")}
+          {reason === "completed_practice" ? "🏆" : reason === "mistakes" ? "💀" : (totalCorrect > 0 ? "🎉" : "⏰")}
         </div>
         
         {/* เปลี่ยนหัวข้อตามสาเหตุ */}
         <h2 className="go-title">
-          {reason === "mistakes" ? "ตอบผิดเกินกำหนด!" : "หมดเวลา!"}
+          {reason === "completed_practice" ? "ผ่านโหมดทดลองเล่น!" : reason === "mistakes" ? "ตอบผิดเกินกำหนด!" : "หมดเวลา!"}
         </h2>
         
-        {/* ข้อความอธิบายเพิ่มเติม (ใส่หรือไม่ใส่ก็ได้ แต่มีไว้จะช่วยให้เข้าใจง่ายขึ้น) */}
+        {/* ข้อความอธิบายเพิ่มเติม */}
         <p style={{ textAlign: "center", marginBottom: "20px", color: "var(--text-color, #666)", opacity: 0.8 }}>
-          {reason === "mistakes" 
+          {reason === "completed_practice"
+            ? "ยินดีด้วย! คุณทำโหมดทดลองเล่นครบทั้ง 10 ข้อเรียบร้อยแล้ว"
+            : reason === "mistakes" 
             ? "คุณตอบผิดครบ 3 ครั้งแล้ว พยายามใหม่นะ" 
             : "เวลาของคุณหมดลงแล้ว มาลองทำลายสถิติใหม่กัน"}
         </p>

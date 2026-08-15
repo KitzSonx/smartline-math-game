@@ -31,7 +31,7 @@ const getStepNames = (levelIdx) => {
     return [{ key: "directAnswer", label: "① ตอบเลย" }];
   }
   return [
-    { key: "headers", label: "① ใส่สัมประสิทธิ์" },
+    { key: "headers", label: "① ใส่พจน์" },
     { key: "grid", label: "② คูณตาราง" },
     { key: "diagonal", label: "③ แนวทแยง + คำตอบ" },
   ];
@@ -75,7 +75,10 @@ export default function SmartLineGame() {
   const timerRef = useRef(null);
   const [mistakes, setMistakes] = useState(0); 
   const MAX_MISTAKES = 3; // ตั้งค่าสูงสุดไว้ที่ 3 ครั้ง
-  const [gameOverReason, setGameOverReason] = useState(""); // เก็บค่า "time" หรือ "mistakes"
+  const [gameOverReason, setGameOverReason] = useState(""); // เก็บค่า "time" หรือ "mistakes" หรือ "completed_practice"
+  const [isPracticeMode, setIsPracticeMode] = useState(false);
+  const [practiceQuestions, setPracticeQuestions] = useState([]);
+  const [practiceIndex, setPracticeIndex] = useState(0);
 
   /* ── localStorage ── */
   useEffect(() => {
@@ -294,8 +297,38 @@ export default function SmartLineGame() {
     }
   }, []);
 
+  const generatePracticeSequence = () => {
+    const pool = [1, 1, 1, 2, 2, 2, 3, 3, 3];
+    pool.push(Math.floor(Math.random() * 3) + 1);
+    for (let i = pool.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [pool[i], pool[j]] = [pool[j], pool[i]];
+    }
+    return pool;
+  };
+
+  const startPracticeGame = () => {
+    SFX.gameStart();
+    setIsPracticeMode(true);
+    const seq = generatePracticeSequence();
+    setPracticeQuestions(seq);
+    setPracticeIndex(0);
+    const firstLvl = seq[0];
+    setLevel(firstLvl);
+    setScore(0);
+    setCombo(0);
+    setMistakes(0);
+    setQuestionsAnswered(0);
+    setTotalCorrect(0);
+    setTimer(900);
+    setIsRunning(true);
+    generateQuestion(firstLvl);
+    setScreen("game");
+  };
+
   const startGame = (lvl) => {
     SFX.gameStart();
+    setIsPracticeMode(false);
     setLevel(lvl);
     setScore(0);
     setCombo(0);
@@ -425,7 +458,24 @@ export default function SmartLineGame() {
     awardResult(isOk, solveTime);
   };
 
-  const nextQuestion = () => generateQuestion(level);
+  const nextQuestion = () => {
+    if (isPracticeMode) {
+      const nextIdx = practiceIndex + 1;
+      if (nextIdx >= 10) {
+        setIsRunning(false);
+        SFX.correct();
+        setGameOverReason("completed_practice");
+        setScreen("gameover");
+        return;
+      }
+      setPracticeIndex(nextIdx);
+      const nextLvl = practiceQuestions[nextIdx];
+      setLevel(nextLvl);
+      generateQuestion(nextLvl);
+    } else {
+      generateQuestion(level);
+    }
+  };
 
   const formatTime = (s) => {
     if (s < 0) s = 0;
@@ -434,24 +484,25 @@ export default function SmartLineGame() {
 
   /* ═══ SCREENS ═══ */
   if (screen === "menu") {
-    return <MenuScreen bestScores={bestScores} bestTimes={bestTimes} onStart={startGame} onHowTo={() => setScreen("howto")} />;
+    return <MenuScreen bestScores={bestScores} bestTimes={bestTimes} onStart={startGame} onStartPractice={startPracticeGame} onHowTo={() => setScreen("howto")} />;
   }
   if (screen === "howto") {
     return <HowToScreen onBack={() => setScreen("menu")} />;
   }
   if (screen === "gameover") {
-    return <GameOverScreen 
+    return <GameOverScreen 
       score={score} totalCorrect={totalCorrect} 
       questionsAnswered={questionsAnswered} level={level} 
       bestTimes={bestTimes} bestScores={bestScores} 
-      onRestart={() => startGame(level)} onMenu={() => setScreen("menu")} 
+      onRestart={() => isPracticeMode ? startPracticeGame() : startGame(level)} onMenu={() => setScreen("menu")} 
       reason={gameOverReason}
     />;
-  }
+  }
 
   /* ═══ GAME RENDER ═══ */
   const lv = LEVELS[level];
-  const timerPct = (timer / lv.time) * 100;
+  const maxTimeForMode = isPracticeMode ? 900 : lv.time;
+  const timerPct = (timer / maxTimeForMode) * 100;
   const timerColor = timer > 30 ? "#16a34a" : timer > 10 ? "#f59e0b" : "#ef4444";
   const stepNames = getStepNames(level);
   const currentStepIdx = stepNames.findIndex((s) => s.key === step);
@@ -475,7 +526,9 @@ export default function SmartLineGame() {
           {soundOn ? "🔊" : "🔇"}
         </button>
         <div className="header-mid">
-          <span className="header-level">{lv.emoji} {lv.name}</span>
+          <span className="header-level">
+            {isPracticeMode ? `🧪 ทดลองเล่น (${practiceIndex + 1}/10) • ${lv.emoji} ${lv.name}` : `${lv.emoji} ${lv.name}`}
+          </span>
           <div className="timer-bar"><div className="timer-fill" style={{ width: `${timerPct}%`, background: timerColor }} /></div>
           <span className="timer-text" style={{ color: timerColor }}>{formatTime(timer)}</span>
         </div>
