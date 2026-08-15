@@ -46,7 +46,24 @@ export default function MenuScreen({ bestScores, bestTimes, onStart, onStartPrac
           </button>
         </div>
 
-        {/* 2.5 ส่วนเอกสารประกอบการเรียน */}
+        {/* 3. ส่วนเลือกด่าน */}
+        <div className="level-grid">
+          {LEVELS.map((lv, i) => (
+            <button
+              key={i}
+              className={`level-card`}
+              onClick={() => { SFX.menuClick(); onStart(i); }}
+            >
+              <span className="lv-emoji">{lv.emoji}</span>
+              <span className="lv-name">{lv.name}</span>
+              <span className="lv-desc">{lv.desc} • {lv.time}s</span>
+              {bestScores[i] !== undefined && <span className="lv-best">🏆 {bestScores[i]} pts</span>}
+              {bestTimes[i]  !== undefined && <span className="lv-best-time">⏱ {bestTimes[i]}s</span>}
+            </button>
+          ))}
+        </div>
+
+        {/* 4. ส่วนเอกสารประกอบการเรียน */}
         <div className="pdf-section">
           <h3 className="pdf-section-title">📄 เอกสารประกอบการเรียน</h3>
           <div className="pdf-grid">
@@ -104,23 +121,6 @@ export default function MenuScreen({ bestScores, bestTimes, onStart, onStartPrac
               </div>
             </div>
           </div>
-        </div>
-
-        {/* 3. ส่วนเลือกด่าน */}
-        <div className="level-grid">
-          {LEVELS.map((lv, i) => (
-            <button
-              key={i}
-              className={`level-card`}
-              onClick={() => { SFX.menuClick(); onStart(i); }}
-            >
-              <span className="lv-emoji">{lv.emoji}</span>
-              <span className="lv-name">{lv.name}</span>
-              <span className="lv-desc">{lv.desc} • {lv.time}s</span>
-              {bestScores[i] !== undefined && <span className="lv-best">🏆 {bestScores[i]} pts</span>}
-              {bestTimes[i]  !== undefined && <span className="lv-best-time">⏱ {bestTimes[i]}s</span>}
-            </button>
-          ))}
         </div>
       </div>
     </div>
